@@ -1,5 +1,6 @@
-# wordpress
 Este repo le ayudara a instalar Wordpress de forma facil y segura
+
+cat vars/main.yml
 
 Variables a tener en cuenta:
 mysql_root_password: "password"
@@ -9,6 +10,34 @@ db_wordpress_name: "wordpress_db
 
 
 Simplemente cambie los password por los de su preferencia.
+
+Tambien debe tener presente otros valores por defecto:
+
+cat defaults/main.yml 
+---
+wordpress_install_dir: "/var/www/html/"
+wordpress_version: "4.9"
+
+mariadb_packages:
+  - mariadb-server
+  - MySQL-python
+  - php-mysql
+
+apache_packages:
+  - httpd
+  - php
+  - wget
+
+mariadb_service: mariadb
+
+La version de Wordpress esta fijada a la 4.9, pero este valor solo va ser utilizado como varible, ya que el main.yml
+descarga la ultima version de wordpress disponible en el sitio oficial, vea el task que hace referencia a esto:
+
+- name: Get Wordpress
+  get_url:
+    url: http://wordpress.org/latest.tar.gz
+    dest: "/tmp/wordpress-{{ wordpress_version }}.tar.gz"
+    validate_certs: false
 
 
 Ejemplo del playbook a ejecutar:
