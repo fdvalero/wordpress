@@ -1,7 +1,8 @@
 # wordpress
 Install wordpress
 
-example:
+
+# example:
 
 ---
 - hosts:
